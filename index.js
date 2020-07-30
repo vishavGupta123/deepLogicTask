@@ -20,21 +20,32 @@ app.get("/getTimeStories", function (req, res) {
     })
     .then(function (data) {
       htmlText = data;
-      return cheerio.load(data);
-    })
-    .then(function (data) {
-      const $ = data;
-      let ansArray = [];
-      //getting the a tag in the page with latest stories
-      //extracting the required data
-      const value = $(".latest>ol>li>.slide>.content>.title>a");
-      for (let i = 0; i < value.length; i++) {
+      const value = htmlText.match(/\<ol class="swipe-h">([\s\S]*?)<\/ol>/gi);
+      var matches = [];
+      const h2Tags = value[0].match(/\<h2 class="title">([\s\S]*?)<\/h2>/gi);
+
+      let anchorArray = [];
+      for (let i = 0; i < h2Tags.length; i++) {
+        anchorArray.push(h2Tags[i].match(/\<a href=(.*?)[^>]*>(.*)?<\/a>/g)[0]);
+      }
+
+      var ansArray = [];
+      for (let i = 0; i < anchorArray.length; i++) {
+        var regex = /\href=(.*)\/>/g;
+        var matched = regex.exec(anchorArray[i])[1];
+        var regex1 = />(.*)</g;
+        var matched1 = regex1.exec(anchorArray[i])[1];
         ansArray.push({
-          title: value[i].children[0].data,
-          link: "https://time.com" + value[i].attribs.href,
+          link: "https://time.com" + matched,
+          title: matched1,
         });
       }
-      JSON.stringify(ansArray);
+      for (let i = 0; i < ansArray.length; i++) {
+        ansArray[i].title.replace(/(?:\r\n|\r|\n)/g, "");
+        ansArray[i].link.replace(/(?:\r\n|\r|\n)/g, "");
+      }
+      console.log(ansArray);
+
       return res.json(ansArray);
     });
 });
