@@ -2,7 +2,6 @@ const express = require("express");
 const app = express();
 const cors = require("cors");
 const fetch = require("node-fetch");
-const cheerio = require("cheerio");
 const port = 8000;
 
 //to enable cross origin
