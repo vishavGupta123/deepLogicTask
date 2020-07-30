@@ -1,0 +1,27 @@
+{
+  "name": "deep-logic",
+  "version": "1.0.0",
+  "description": "Getting latest news from time.com",
+  "main": "index.js",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "cheerio": "^1.0.0-rc.3",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "node-fetch": "^2.6.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vishavGupta123/deepLogicTask.git"
+  },
+  "author": "Vishav Gupta",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/vishavGupta123/deepLogicTask/issues"
+  },
+  "homepage": "https://github.com/vishavGupta123/deepLogicTask#readme"
+}
